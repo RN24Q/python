@@ -2,10 +2,12 @@
 VERSION ?= 3.7.3
 # 用于基础镜像的 tag（如 3.7-slim、3.9-slim）
 PYTHON_IMAGE_TAG := $(VERSION)-slim
+GIT_COMMIT_SHA := $(shell git rev-parse --short=7 HEAD 2>/dev/null || echo "unknown")
 # 输出镜像的 tag
-REAL_VERSION := $(VERSION)
+REAL_VERSION := $(VERSION)-$(GIT_COMMIT_SHA)
 TAG_NAME := release-v$(REAL_VERSION)
 IMG_FULL_NAME := registry.ap-southeast-1.aliyuncs.com/hlib/python:$(REAL_VERSION)
+GIT_COMMIT_SHA := $(shell git rev-parse --short=7 HEAD 2>/dev/null || echo "unknown")
 
 .PHONY: tag build img_run
 
