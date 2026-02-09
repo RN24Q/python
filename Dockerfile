@@ -13,7 +13,6 @@ FROM python:${PYTHON_VERSION}
 
 # 配置国内镜像源以加速 apt-get（使用阿里云 Debian 镜像）
 # 自动检测并替换 Debian 源为国内镜像，支持新版本（debian.sources）和旧版本（sources.list）
-# 注意：Debian Stretch (9) 的 security 套件名为 codename/updates，Buster (10) 及以后为 codename-security
 RUN DEBIAN_CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2) && \
     if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
         sed -i 's|http://deb.debian.org|https://mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
@@ -21,11 +20,7 @@ RUN DEBIAN_CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2)
     else \
         echo "deb https://mirrors.aliyun.com/debian/ ${DEBIAN_CODENAME} main contrib non-free non-free-firmware" > /etc/apt/sources.list && \
         echo "deb https://mirrors.aliyun.com/debian/ ${DEBIAN_CODENAME}-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
-        if [ "${DEBIAN_CODENAME}" = "stretch" ]; then \
-            echo "deb https://mirrors.aliyun.com/debian-security ${DEBIAN_CODENAME}/updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list; \
-        else \
-            echo "deb https://mirrors.aliyun.com/debian-security ${DEBIAN_CODENAME}-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list; \
-        fi; \
+        echo "deb https://mirrors.aliyun.com/debian-security ${DEBIAN_CODENAME}-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list; \
     fi
 
 # 只安装运行时必需的系统库

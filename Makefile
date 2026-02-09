@@ -1,5 +1,5 @@
 # Python 版本，构建时传入，例如 make build VERSION=3.9
-VERSION ?= 3.7.3
+VERSION ?= 3.7
 # 用于基础镜像的 tag（如 3.7-slim、3.9-slim）
 PYTHON_IMAGE_TAG := $(VERSION)-slim
 GIT_COMMIT_SHA := $(shell git rev-parse --short=7 HEAD 2>/dev/null || echo "unknown")
