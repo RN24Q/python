@@ -16,7 +16,7 @@ build:
 
 tag:
 	@echo "创建标签: $(TAG_NAME)"
-	@git tag $(TAG_NAME)
+	@git rev-parse $(TAG_NAME) >/dev/null 2>&1 || git tag $(TAG_NAME)
 	@echo "推送标签到远程..."
 	@git push origin $(TAG_NAME)
 	@echo "✅ 标签 $(TAG_NAME) 已成功推送"
