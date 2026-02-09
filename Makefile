@@ -1,5 +1,5 @@
 # Python 版本，构建时传入，例如 make build VERSION=3.9
-VERSION ?= 3.7
+VERSION ?= 3.7.3-slim
 # 用于基础镜像的 tag（如 3.7-slim、3.9-slim）
 PYTHON_IMAGE_TAG := $(VERSION)-slim
 # 输出镜像的 tag

@@ -7,7 +7,7 @@
 ARG BUILDPLATFORM=linux/amd64
 ARG TARGETPLATFORM=linux/amd64
 # 构建参数：Python 版本，例如 3.7-slim、3.9-slim、3.10-slim
-ARG PYTHON_VERSION=3.7-slim
+ARG PYTHON_VERSION=3.7.3-slim
 
 FROM python:${PYTHON_VERSION}
 
