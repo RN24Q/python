@@ -7,7 +7,7 @@
 ARG BUILDPLATFORM=linux/amd64
 ARG TARGETPLATFORM=linux/amd64
 # 构建参数：Python 版本，例如 3.7-slim、3.9-slim、3.10-slim
-ARG PYTHON_VERSION=3.7.3-slim
+ARG PYTHON_VERSION=3.7-slim
 
 FROM python:${PYTHON_VERSION}
 
@@ -23,8 +23,8 @@ RUN DEBIAN_CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2)
         echo "deb https://mirrors.aliyun.com/debian-security ${DEBIAN_CODENAME}-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list; \
     fi
 
-# 只安装运行时必需的系统库
-RUN apt-get update -o Acquire::Check-Valid-Until=false -o Acquire::AllowInsecureRepositories=true --allow-releaseinfo-change || true && \
+# 只安装运行时必需的系统库（使用 -o 形式避免选项冲突，不单独使用 --allow-releaseinfo-change）
+RUN apt-get update -o Acquire::Check-Valid-Until=false -o Acquire::AllowInsecureRepositories=true -o APT::Get::AllowReleaseInfoChange=true || true && \
     apt-get install -y --no-install-recommends \
     libgomp1 \
     && rm -rf /var/lib/apt/lists/* \
